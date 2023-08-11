@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
+*/
+
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.main:before {
+  background-image: url("/assets/images/homebgdark.jpg");
+  background-repeat: no-repeat;
+  background-size:cover;
+  position: absolute;
+  content: "";
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.main:after {
+  content: "";
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0.4;
+  filter: invert(1);
+}
+
+.gradient {
+  height: fit-content;
+  z-index: 3;
+  width: 100%;
+  max-width: 640px;
+  background-image: radial-gradient(
+      at 27% 37%,
+      hsla(215, 98%, 61%, 1) 0px,
+      transparent 0%
+    ),
+    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  filter: blur(100px) saturate(150%);
+  top: 80px;
+  opacity: 0.15;
+}
+
+@media screen and (max-width: 640px) {
+  .main {
+    padding: 0;
+  }
+}
+
+.innerNav {
+  margin-left: 50rem;
+}
+
+/* Tailwind Styles */
+
+.app {
+  @apply min-h-screen/6 relative z-10 flex  flex-col mx-auto sm:px-16 px-6;
+}
+
+.black_btn {
+  @apply rounded-full border border-black bg-black py-1.5 px-4 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+}
+
+.outline_btn {
+  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
+}
+
+.head_text {
+  @apply mt-5 text-5xl font-bold leading-[1.15] text-black sm:text-6xl text-center;
+}
+
+.subhead_text {
+  @apply mt-5 text-4xl font-bold leading-[1.15] text-black sm:text-4xl text-center;
+}
+
+.orange_gradient {
+  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
+.green_gradient {
+  @apply bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent;
+}
+
+.blue_gradient {
+  @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+}
+
+.desc {
+  @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
+}
+
+.search_input {
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+}
+
+.copy_btn {
+  @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
+}
+
+.glassmorphism {
+  @apply rounded-xl border border-gray-200 bg-white/70 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.8)] backdrop-blur p-5;
+}
+
+.emraldmorphism {
+  @apply rounded-xl border border-gray-200 bg-slate-500/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.7)] backdrop-blur p-5;
+}
+
+.darkmorphism {
+  @apply border-x-0 border-gray-200 bg-slate-500/20 shadow-[inset_10px_-50px_94px_0_rgb(17,66,92,0.2)] backdrop-blur p-3;
+}
+
+.onyxmorphism {
+  @apply border-x-0 border-blue-950 bg-blue-950/70 shadow-[inset_10px_-50px_94px_0_rgb(148,163,184,0.5)] backdrop-blur p-2;
+}
+
+.prompt_layout {
+  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3 ;
+}
+
+/* Feed Component */
+.feed {
+  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+}
+
+/* Form Component */
+.form_textarea {
+  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
+}
+
+.form_input {
+  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+}
+
+/* Nav Component */
+.logo_text {
+  @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
+}
+
+.dropdown {
+  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
+}
+
+.dropdown_link {
+  @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium;
+}
+
+/* PromptCard Component */
+.prompt_card {
+  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-start {
+  @apply flex justify-start items-start;
+}
+
+.flex-end {
+  @apply flex justify-end items-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+
+.content-wrap {
+  z-index: 3;
+  width: 100%;
+  background-color: white;
+}
+
+.trxn_modal {
+  z-index: 11;
+  position: absolute;
+  background-color:rgb(248 250 252);
+  border-radius: 1rem;
+  top: 10%;
+  left: 20%;
+  margin: auto;
+  max-width: 50rem;
+  padding: 3rem;
+}
+
+
+.modal_close {
+  top: 10%;
+  float: right;
+}
+
+.mainContainer {
+  @apply min-h-screen w-full font-roboto bg-gray-200 py-6 flex flex-col justify-center items-center sm:py-12;
+}
+
+/** Form */
+.form {
+  @apply bg-slate-50 p-1 w-11/12 md:w-11/12 lg:w-11/12;
+}
+.form h2 {
+  @apply text-xl font-bold mb-4;
+}
+
+/** Input group */
+.inputGroup {
+  @apply flex flex-row gap-1 mb-8;
+}
+.inputGroup div{
+  @apply relative;
+}
+.inputSection{
+  @apply mx-4 w-6/12
+}
+.inputGroup div span{
+  @apply absolute right-0 -bottom-5 text-red-400 text-xs;
+}
+.inputGroup h3 {
+  @apply text-purple-500;
+}
+.inputGroup legend {
+  @apply mt-2 text-gray-700;
+}
+.inputGroup input {
+  @apply w-full border-b-2 border-gray-300 p-2 rounded;
+  @apply focus:border-b-2 border-blue-500 placeholder-gray-400;
+}
+.inputInvalid{
+  @apply border-b-2 border-red-400 !important;
+}
+
+.displayGroup {
+  
+}
+
+.inputus {
+  margin-bottom: 2.4rem;
+}
+
+.drop select {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 5px;
+  padding: 0.3rem;
+  border-bottom: 2px solid rgb(59 130 246);
+  background-color: rgb(248 250 252);
+  margin-bottom: 2rem;
+}
+
+.provImage {
+  margin-left: 3.4rem;
+}
+
+.dispInputGroup {
+  display: flex;
+  width: 100%;
+}
+
+.dispLabel {
+  font-size: small;
+  font-weight: bolder;
+  color: mediumturquoise;
+}
+
+.highlight {
+  font-size: small;
+  font-weight: bolder;
+  color: cornflowerblue;
+}
+
+/** navigation by steps */
+.navigationControls {
+  @apply w-full justify-between mt-4 flex flex-row-reverse;
+}
+.submitButton {
+  @apply py-3 px-5 bg-blue-700 text-blue-100 rounded text-sm font-bold;
+}
+.submitButton:disabled,
+.nextButton:disabled{
+  @apply opacity-40 cursor-not-allowed;
+}
+.backButton, 
+.nextButton{
+  @apply flex flex-row items-center text-xs font-bold;
+}
+.backButton {
+  @apply bg-gray-100 text-gray-400 rounded py-2 px-3;
+}
+.nextButton {
+  @apply bg-blue-100 rounded py-2 px-3 text-blue-600 flex-row-reverse;
+}
+
+/** navigation controls */
+.reference{
+  @apply w-full flex items-center justify-center gap-1 py-4;
+}
+.markerBlue,
+.markerGray{
+  @apply rounded-full w-2 h-2;
+}
+.markerBlue{
+  @apply bg-blue-600;
+}
+.markerGray{
+  @apply bg-gray-300;
+}
