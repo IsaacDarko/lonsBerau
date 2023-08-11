@@ -73,12 +73,13 @@ const TrxnModal = ({ trxnType, setToggleModal }) => {
                     bank_account: trxn.BankDetails[0],
                     bank_sortNo: trxn.BankDetails[1],
                     bank_swift: trxn.BankDetails[2],
-                    wallet_paidTo: trxn.walletAddress
+                    wallet_paidTo: trxn.walletAddress,
+                    confirmed: false
                 })
             })
 
             if(response.ok){
-                router.push('/dashboard')
+                router.push('/dashboard/transactions')
             }
 
         console.log('transaction created');
