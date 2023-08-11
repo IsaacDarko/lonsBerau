@@ -66,6 +66,11 @@ const TransactionsSchema = new Schema({
         required: [true, 'wallet paid to is required']
     },
 
+    confirmed: {
+        type: Boolean,
+        default: false
+    }
+
 });
 
 const Transactions = models.Transactions || model('Transactions', TransactionsSchema);
