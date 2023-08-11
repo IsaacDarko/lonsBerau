@@ -1,14 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import TrxnCard from "@components/TrxnCard";
+import Profile from "@components/Profile";
+import { useSession } from "next-auth/react";
 import { TabNav, TabContent } from "@components/dashboard-components";
 
+
+const TrxnCardList = ({ data, handleClick }) => {
+  const { data: session } = useSession();
+  return(
+    <div className=" mt-8 prompt_layout">
+      {data.map((trxn) => (
+        <TrxnCard 
+          key={trxn._id}
+          transaction={trxn}
+          handleClick={handleClick}
+        />
+      ))}
+
+    </div>
+  )
+}
+
+
+
 const MyProfile = () => {
+  const [transactions, setTransactions] = useState([]);
   const [activeTab, setActiveTab] = useState("profile");
+  const { data: session } = useSession();
+
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const response = await fetch('/api/transactions');
+      const data = await response.json();
+      setTransactions(data);
+    }
+
+    fetchTransactions();
+  }, []);
+
 
   return (
     <section
-      className="flex justify-center bg-opacity-50 h-screen backdrop-filter backdrop-blur-xl py-6
+      className="flex justify-center bg-opacity-50 min-h-screen backdrop-filter backdrop-blur-xl py-6
      text-white w-full sm:py-14 sm:px-16 px-4"
     >
       <div className="flex flex-col w-full sm:flex-row">
@@ -37,7 +73,7 @@ const MyProfile = () => {
             />
           </ul>
         </div>
-        <div className="bg-white bg-opacity-95 p-5 text-gray-900 w-full sm:w-5/6 min-h-screen/4 rounded">
+        <div className="bg-white/50 bg-opacity-95 p-5 text-gray-900 w-full h-full sm:w-5/6 rounded">
           <TabContent id="profile" activeTab={activeTab}>
             <div className="flex flex-col sm:px-4">
               <div className="pb-12">
@@ -60,18 +96,7 @@ const MyProfile = () => {
                         John Doe
                       </h3>
                     </div>
-                    <div className="mt-5">
-                      <ul className="w-full flex flex-col sm:flex-row sm:space-x-4">
-                        <li className="w-full border-opacity-100 py-2 font-normal">
-                          Email <br />
-                          <span className="font-semibold">12322@gmail.com</span>
-                        </li>
-                        <li className="w-full border-opacity-100 py-2 font-normal">
-                          Phone <br />
-                          <span className="font-semibold">12322@gmail.com</span>
-                        </li>
-                      </ul>
-                    </div>
+                    <Profile />
                   </div>
                 </div>
               </div>
@@ -82,42 +107,10 @@ const MyProfile = () => {
               <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                   <div class="overflow-hidden">
-                    <table class="min-w-full text-left text-sm font-light">
-                      <thead class="border-b font-medium">
-                        <tr>
-                          <th scope="col" class="px-6 py-4">
-                            ID
-                          </th>
-                          <th scope="col" class="px-6 py-4">
-                            Transaction Type
-                          </th>
-                          <th scope="col" class="px-6 py-4">
-                            Amount
-                          </th>
-                          <th scope="col" class="px-6 py-4">
-                            Initiated
-                          </th>
-                          <th scope="col" class="px-6 py-4">
-                            Completed
-                          </th>
-                          <th scope="col" class="px-6 py-4">
-                            Date
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="border-b">
-                          <td class="whitespace-nowrap px-6 py-4 font-medium">
-                            1
-                          </td>
-                          <td class="whitespace-nowrap px-6 py-4">54586</td>
-                          <td class="whitespace-nowrap px-6 py-4">Otto</td>
-                          <td class="whitespace-nowrap px-6 py-4">@mdo</td>
-                          <td class="whitespace-nowrap px-6 py-4">Mark</td>
-                          <td class="whitespace-nowrap px-6 py-4">Otto</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <TrxnCardList
+                      data={transactions}
+                      handleClick={() => {}}
+                    />
                   </div>
                 </div>
               </div>

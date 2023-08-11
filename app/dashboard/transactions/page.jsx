@@ -26,16 +26,10 @@ const TrxnCardList = ({ data, handleClick }) => {
 
 
 const page = () => {
-  const { data: session } = useSession();
   const [searchText, setSearchText] = useState('');
   const [transactions, setTransactions] = useState([]);
   
   const router = useRouter();
-
-  const sessionCheck = () => {
-    const user = session?.user.id;
-    console.log(user)
-  }
 
 
   useEffect(() => {
@@ -45,7 +39,6 @@ const page = () => {
       setTransactions(data);
     }
 
-    sessionCheck();
     fetchTransactions();
   }, []);
 
