@@ -1,22 +1,67 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import { space } from "postcss/lib/list";
+
+import { BitcoinLogo } from  '@public/assets/cryptologos';
+import { EthereumLogo } from '@public/assets/cryptologos';
+import { LitecoinLogo } from '@public/assets/cryptologos';
+import { SolanaLogo } from '@public/assets/cryptologos';
+import { TetherLogo } from '@public/assets/cryptologos';
+import { TethergoldLogo } from '@public/assets/cryptologos';
+import { USDCLogo } from '@public/assets/cryptologos';
+
 
 
 const TrxnCard = ({ transaction, handleClick }) => {
   const { data: session } = useSession();
-  const { transaction_type } = transaction;
+  const [logo, setLogo] = useState('');
+  const { transaction_type, token_type } = transaction;
+  const router = useRouter();
+
+  useEffect(() => {
+    const sessionCheck = () => {
+      const user = session?.user.id;
+      console.log(user)
+      if(!user){
+        router.push('/')
+      }
+    }
+
+    const setCryptoLogo = () => {
+      if(token_type === 'bitcoin'){
+        setLogo(BitcoinLogo)
+      }else if(token_type === 'litecoin'){
+        setLogo(LitecoinLogo)
+      }else if(token_type === 'ethereum'){
+        setLogo(EthereumLogo)
+      }else if(token_type === 'solana'){
+        setLogo(SolanaLogo)
+      }else if(token_type === 'tether'){
+        setLogo(TetherLogo)
+      }else if(token_type === 'tether-gold'){
+        setLogo(TethergoldLogo)        
+      }else if(token_type === 'usd-coin'){
+        setLogo(USDCLogo)
+      }else{
+        setLogo(session?.user.image)
+      }
+    }
+
+    sessionCheck()
+    setCryptoLogo();
+  }, []);
+
+
 
   return (
     <div className='transactionCard'>
       <div className={ transaction_type === 'buy' ? `flex items-start gap-5 innerCardBuy` : `flex items-start gap-5 innerCardSell`}>
         <Image 
-          src={session?.user.image}
-          alt=""
+          src={logo}
+          alt="Crypto_Logo"
           width={70}
           height={70}
           className="rounded-full object-contain"

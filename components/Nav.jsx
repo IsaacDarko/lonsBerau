@@ -15,6 +15,12 @@ const Nav = () => {
   const [active, setActive] = useState("Home");
   const isUserLoggedIn = true;
 
+  const persisitUser = () => {
+    const loggedInUser = session.user.email;
+    console.log(loggedInUser);
+    localStorage.setItem('activeUser', loggedInUser);
+  }
+
   useEffect(() => {
     const setupProviders = async () => {
       const response = await getProviders();
@@ -22,7 +28,7 @@ const Nav = () => {
     };
 
     setupProviders();
-  }, []);
+  }, []); 
 
   return (
     <nav className="flex flex-between w-full py-2 px-4 bg-opacity-50 backdrop-filter backdrop-blur-lg bg-slate-700 z-10">
@@ -151,7 +157,7 @@ const Nav = () => {
                     <button
                       type="button"
                       key={provider.name}
-                      onClick={() => signIn(provider.id)}
+                      onClick={() =>{ signIn(provider.id); persisitUser()} }
                       className="black_btn"
                     >
                       Sign In

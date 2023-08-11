@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from "react";
 import TrxnCard from "@components/TrxnCard";
+import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 
 const TrxnCardList = ({ data, handleClick }) => {
+  const { data: session } = useSession();
   return(
     <div className=" mt-8 prompt_layout">
       {data.map((trxn) => (
@@ -23,9 +26,16 @@ const TrxnCardList = ({ data, handleClick }) => {
 
 
 const page = () => {
+  const { data: session } = useSession();
   const [searchText, setSearchText] = useState('');
   const [transactions, setTransactions] = useState([]);
+  
+  const router = useRouter();
 
+  const sessionCheck = () => {
+    const user = session?.user.id;
+    console.log(user)
+  }
 
 
   useEffect(() => {
@@ -35,6 +45,7 @@ const page = () => {
       setTransactions(data);
     }
 
+    sessionCheck();
     fetchTransactions();
   }, []);
 
